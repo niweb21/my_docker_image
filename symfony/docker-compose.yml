@@ -1,0 +1,10 @@
+version: '2'
+services:
+    web:
+        build: ./docker/web/.
+        ports:
+            - "80:80"
+        volumes:
+            - ".:/var/www/html:rw"
+            - "./docker/web/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro"
+            - "./docker/web/vhost.conf:/etc/apache2/sites-enabled/000-default.conf:ro"
