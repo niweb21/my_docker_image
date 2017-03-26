@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  web:
+    build: ./docker/web/
+    ports:
+        - "80:80"
+    volumes:
+        - ./code:/var/www/html
+        - ./docker/web/php.ini:/etc/php/7.1/apache2/conf.d/custom.ini:ro
+        - ./docker/web/php.ini:/etc/php/7.1/cli/conf.d/custom.ini:ro
+    networks:
+        - db
+    depends_on:
+        - db
+
+  db:
+    image: mysql:5.7
+    volumes:
+        - data-volume:/var/lib/mysql
+    ports:
+        - 3606:3606
+    restart: always
+    environment:
+          MYSQL_ROOT_PASSWORD: root_pwd
+          MYSQL_DATABASE: db_test
+          MYSQL_USER: db_user
+          MYSQL_PASSWORD: db_pwd
+    networks:
+        - db
+
+volumes:
+  data-volume:
+
+networks:
+  db:
