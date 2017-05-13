@@ -6,9 +6,7 @@ services:
     ports:
         - "80:80"
     volumes:
-        - ./code:/var/www/html
-        - ./docker/web/php.ini:/etc/php/7.1/apache2/conf.d/custom.ini:ro
-        - ./docker/web/php.ini:/etc/php/7.1/cli/conf.d/custom.ini:ro
+        - .:/var/www/html
     networks:
         - db
     depends_on:
@@ -20,7 +18,6 @@ services:
         - data-volume:/var/lib/mysql
     ports:
         - 3606:3606
-    restart: always
     environment:
           MYSQL_ROOT_PASSWORD: root_pwd
           MYSQL_DATABASE: db_test
